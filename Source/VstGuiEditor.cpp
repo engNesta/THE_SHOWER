@@ -3,7 +3,10 @@
 //
 
 #include "VstGuiEditor.h"
-VstGuiEditor::VstGuiEditor(juce::AudioProcessor *processor) : juce::AudioProcessorEditor(processor) {}
+VstGuiEditor::VstGuiEditor(juce::AudioProcessor *processor) : juce::AudioProcessorEditor(processor)
+{
+
+}
 
 VstGuiEditor::~VstGuiEditor() {}
 
