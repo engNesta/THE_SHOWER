@@ -1,4 +1,5 @@
 #include "MainComponent.h"
+#include "VstGuiEditor.h"
 
 //==============================================================================
 MainComponent::MainComponent()
@@ -111,6 +112,15 @@ void MainComponent::hostVST3(juce::File &file)
     if(vst3Instance != nullptr)
     {
         infoLabel.setText("VST3 LOADED!", juce::dontSendNotification);
+        if(juce::AudioProcessorEditor * editor = vst3Instance->createEditor())
+        {
+            addAndMakeVisible(editor);
+
+        }
+        else
+        {
+            infoLabel.setText("VST3 GUI NOT LOADED", juce::dontSendNotification);
+        }
     }
     else
     {
