@@ -49,7 +49,7 @@ void MainComponent::resized()
     infoLabel.setBounds(170, 500, 400, 50);
 }
 
-void MainComponent::buttonClicked(juce::Button *button) {
+void MainComponent::buttonClicked(juce::Button *button){
     if (button == &loadButton)
     {
         loadButton.setButtonText("LOADING...");
@@ -69,7 +69,6 @@ void MainComponent::loadFile()
         auto result = chooser.getResult();
         if (result.exists())
         {
-            auto path = result.getFullPathName();
             retrieveVST3data(result);
             hostVST3(result);
 
@@ -93,7 +92,7 @@ void MainComponent::retrieveVST3data(juce::File &file)
 
 }
 
-std::unique_ptr<AudioPluginInstance> MainComponent::hostVST3(juce::File &file)
+void MainComponent::hostVST3(juce::File &file)
 {
     formatManager.addDefaultFormats();
     OwnedArray<PluginDescription> typesFound;
@@ -102,6 +101,8 @@ std::unique_ptr<AudioPluginInstance> MainComponent::hostVST3(juce::File &file)
 
     KnownPluginList pluginList;
     pluginList.scanAndAddFile(vst3Description.fileOrIdentifier, true, typesFound, *format);
+
+    infoLabel.setText(typesFound[0]->name, juce::dontSendNotification);
 
     juce::String errorMessage;
 

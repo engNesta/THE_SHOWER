@@ -24,7 +24,7 @@ public:
     void buttonClicked(juce::Button *button) override;
     void loadFile();
     void retrieveVST3data(juce::File &file);
-    std::unique_ptr<AudioPluginInstance> hostVST3(juce::File &file);
+    void hostVST3(juce::File &file);
 
 private:
     //==============================================================================
