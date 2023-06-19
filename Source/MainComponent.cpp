@@ -1,5 +1,5 @@
 #include "MainComponent.h"
-#include "VstGuiEditor.h"
+
 
 //==============================================================================
 MainComponent::MainComponent()
@@ -18,6 +18,10 @@ MainComponent::MainComponent()
     infoLabel.setColour(juce::Label::textColourId, juce::Colour::fromRGB(250, 249, 246));
     addAndMakeVisible(infoLabel);
     addAndMakeVisible(loadButton);
+
+
+
+
 }
 
 MainComponent::~MainComponent()
@@ -96,6 +100,7 @@ void MainComponent::retrieveVST3data(juce::File &file)
 void MainComponent::hostVST3(juce::File &file)
 {
     formatManager.addDefaultFormats();
+
     OwnedArray<PluginDescription> typesFound;
 
     AudioPluginFormat* format = formatManager.getFormat(0);
@@ -109,25 +114,38 @@ void MainComponent::hostVST3(juce::File &file)
 
     std::unique_ptr<AudioPluginInstance> vst3Instance = formatManager.createPluginInstance(*typesFound[0], 44100.0, 512, errorMessage);
 
+
+
     if(vst3Instance != nullptr)
     {
-        infoLabel.setText("VST3 LOADED!", juce::dontSendNotification);
-        juce::AudioProcessorEditor * editor = vst3Instance->createEditor();
-        if(editor != nullptr)
-        {
-            addAndMakeVisible(editor);
-            editor->setBounds(60, 20, 400, 300);
-
-        }
+        createEditor(*vst3Instance);
 
 
-        else
-        {
-            infoLabel.setText("VST3 GUI NOT LOADED", juce::dontSendNotification);
-        }
+
     }
     else
     {
         infoLabel.setText("VST3 NOT LOADED", juce::dontSendNotification);
     }
 }
+
+
+void MainComponent::createEditor(AudioPluginInstance& pluginInstance)
+{
+    juce::AudioProcessorEditor * vstEditor = pluginInstance.createEditor();
+
+    if (vstEditor != nullptr)
+    {
+
+        addAndMakeVisible(vstEditor);
+        vstEditor->setBounds(70, 20, 300, 200);
+
+
+    }
+    else
+    {
+        infoLabel.setText("Failed to obtain AudioProcessor", juce::dontSendNotification);
+    }
+}
+
+
