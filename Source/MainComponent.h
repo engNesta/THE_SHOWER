@@ -27,6 +27,7 @@ public:
     void retrieveVST3data(juce::File &file);
     void hostVST3(juce::File &file);
     void createEditor(AudioPluginInstance& pluginInstance);
+    std::unique_ptr<AudioPluginInstance> vst3Instance;
 
 
 private:

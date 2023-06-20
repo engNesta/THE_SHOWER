@@ -108,7 +108,8 @@ void MainComponent::hostVST3(juce::File &file)
 
     juce::String errorMessage;
 
-    std::unique_ptr<AudioPluginInstance> vst3Instance = formatManager.createPluginInstance(*typesFound[0], 44100.0, 512, errorMessage);
+    //instantiate the plugin
+    vst3Instance = formatManager.createPluginInstance(*typesFound[0], 44100.0, 512, errorMessage);
 
     if(vst3Instance != nullptr)
     {
