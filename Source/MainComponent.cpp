@@ -18,10 +18,6 @@ MainComponent::MainComponent()
     infoLabel.setColour(juce::Label::textColourId, juce::Colour::fromRGB(250, 249, 246));
     addAndMakeVisible(infoLabel);
     addAndMakeVisible(loadButton);
-
-
-
-
 }
 
 MainComponent::~MainComponent()
@@ -103,7 +99,7 @@ void MainComponent::hostVST3(juce::File &file)
 
     OwnedArray<PluginDescription> typesFound;
 
-    AudioPluginFormat* format = formatManager.getFormat(0);
+    AudioPluginFormat * format = formatManager.getFormat(0);
 
     KnownPluginList pluginList;
     pluginList.scanAndAddFile(vst3Description.fileOrIdentifier, true, typesFound, *format);
@@ -114,14 +110,9 @@ void MainComponent::hostVST3(juce::File &file)
 
     std::unique_ptr<AudioPluginInstance> vst3Instance = formatManager.createPluginInstance(*typesFound[0], 44100.0, 512, errorMessage);
 
-
-
     if(vst3Instance != nullptr)
     {
         createEditor(*vst3Instance);
-
-
-
     }
     else
     {
@@ -139,9 +130,7 @@ void MainComponent::createEditor(AudioPluginInstance& pluginInstance)
 
         addAndMakeVisible(vstEditor);
         vstEditor->setBounds(70, 20, 300, 200);
-
-
-    }
+     }
     else
     {
         infoLabel.setText("Failed to obtain AudioProcessor", juce::dontSendNotification);
