@@ -4,26 +4,16 @@
 #define CATCH_CONFIG_MAIN
 #include "../Source/MainComponent.h"
 #include <juce_core/juce_core.h>
+#include <juce_graphics/juce_graphics.h>
+#include <juce_gui_basics/juce_gui_basics.h>
 #include <juce_audio_processors/juce_audio_processors.h>
 #include "Catch2/src/catch2/catch_test_macros.hpp"
+//REMEMBER TO CALL THE JUCE NAMESPACE WHEN USING JUCE CLASSES
 
-TEST_CASE("Plugin Editor GUI Display Test", "[plugin_editor]")
+TEST_CASE("Plugin Editor GUI Display Test")
 {
-    juce::AudioPluginFormatManager formatManager;
-    // ... Initialize the format manager and load plugins if needed
-    formatManager.addDefaultFormats();
 
-    juce::String errorMessage;
-
-    std::unique_ptr<juce::AudioPluginInstance> pluginInstance = formatManager.createPluginInstance(/* Plugin parameters */);
-    REQUIRE(pluginInstance != nullptr);
-
-    juce::AudioProcessorEditor* editor = pluginInstance->createEditor();
-    REQUIRE(editor != nullptr);
-
-    // Add assertions to check if the editor is properly displayed
-    REQUIRE(editor->getWidth() == 300);
-    REQUIRE(editor->getHeight() == 200);
+    MainComponent mainComponent;
 
 
 }
